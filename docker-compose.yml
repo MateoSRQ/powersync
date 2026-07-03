@@ -3,7 +3,6 @@ services:
     container_name: powersync_postgres
     image: postgres:16
     restart: unless-stopped
-    # Logical replication is MANDATORY for PowerSync to work
     command: 
       - "postgres"
       - "-c"
@@ -31,34 +30,13 @@ services:
       - postgres
     command: ["start", "-r", "unified"]
     environment:
-      # Explicitly tell PowerSync where the config file lives
       PS_CONFIG_PATH: /config/powersync.yaml 
     volumes:
-      # Updated to match the new file name
+      # If using GitHub: leave as ./powersync.yaml
+      # If using Web Editor: change to absolute paths like /opt/powersync/powersync.yaml
       - ./powersync.yaml:/config/powersync.yaml:ro
       - ./sync-config.yaml:/config/sync-config.yaml:ro
 
+# This section can only exist ONCE at the very end of the file
 volumes:
-  postgres_data:services:
-  postgres:
-    container_name: powersync_postgres
-    image: postgres:16
-    restart: unless-stopped
-    # Logical replication is MANDATORY for PowerSync to work
-    command: 
-      - "postgres"
-      - "-c"
-      - "wal_level=logical"
-      - "-c"
-      - "max_replication_slots=5"
-      - "-c"
-      - "max_wal_senders=5"
-    environment:
-      POSTGRES_USER: powersyncuser
-      POSTGRES_PASSWORD: password.123
-      POSTGRES_DB: powertest
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
+  postgres_data:
