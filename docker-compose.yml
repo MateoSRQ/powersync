@@ -12,9 +12,9 @@ services:
       - "-c"
       - "max_wal_senders=5"
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: powersyncuser
+      POSTGRES_PASSWORD: password.123
+      POSTGRES_DB: powersync
     ports:
       - "5432:5432"
     volumes:
