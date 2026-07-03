@@ -2,7 +2,7 @@ replication:
   connections:
     - type: postgresql
       # This must match the credentials in your docker-compose.yml
-      uri: postgresql://myuser:mysecretpassword@postgres:5432/mydatabase
+      uri: postgresql://powersyncuser:password123@postgres:5432/powertest
       sslmode: disable # Suitable for local Docker networks
 
 # PowerSync needs a place to store intermediate synced data chunks. 
