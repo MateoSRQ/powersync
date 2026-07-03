@@ -1,0 +1,14 @@
+edition: 3
+streams:
+  # Data that should go to EVERY user
+  global_data:
+    auto_subscribe: true
+    queries:
+      - SELECT * FROM public.shared_app_settings
+      
+  # Data specific to the logged-in user
+  user_specific_data:
+    auto_subscribe: false
+    queries:
+      # 'bucket.user_id' maps to the authenticated user requesting the sync
+      - SELECT * FROM public.user_profiles WHERE user_id = bucket.user_id
