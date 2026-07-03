@@ -30,13 +30,11 @@ services:
       - postgres
     command: ["start", "-r", "unified"]
     environment:
-      PS_CONFIG_PATH: /config/powersync.yaml 
+      # THE FIX: POWERSYNC_CONFIG_PATH instead of PS_CONFIG_PATH
+      POWERSYNC_CONFIG_PATH: /config/powersync.yaml 
     volumes:
-      # If using GitHub: leave as ./powersync.yaml
-      # If using Web Editor: change to absolute paths like /opt/powersync/powersync.yaml
       - ./powersync.yaml:/config/powersync.yaml:ro
       - ./sync-config.yaml:/config/sync-config.yaml:ro
 
-# This section can only exist ONCE at the very end of the file
 volumes:
   postgres_data:
