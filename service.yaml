@@ -9,7 +9,7 @@ replication:
 # We are using the main Postgres database here for simplicity.
 storage:
   type: postgresql
-  uri: postgresql://myuser:password123@postgres:5432/powertest
+  uri: postgresql://powersyncuser:password123@postgres:5432/powertest
   sslmode: disable
 
 # Points to where your sync rules are defined
