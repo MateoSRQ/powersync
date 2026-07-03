@@ -1,0 +1,38 @@
+services:
+  postgres:
+    container_name: powersync_postgres
+    image: postgres:16
+    restart: unless-stopped
+    # Logical replication is MANDATORY for PowerSync to work
+    command: 
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+      - "-c"
+      - "max_replication_slots=5"
+      - "-c"
+      - "max_wal_senders=5"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: password.123
+      POSTGRES_DB: powertest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  powersync:
+    container_name: powersync_service
+    image: journeyapps/powersync-service:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: ["start", "-r", "unified"]
+    volumes:
+      - ./service.yaml:/config/service.yaml:ro
+      - ./sync-config.yaml:/config/sync-config.yaml:ro
+
+volumes:
+  postgres_data:
