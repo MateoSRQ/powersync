@@ -14,7 +14,7 @@ storage:
 
 # Points to where your sync rules are defined
 sync:
-  path: /config/sync-config.yaml
+  path: /config/sync-rules.yaml
 
 # In production, replace this with your actual auth provider's JWKS URI 
 # (e.g., Supabase, Auth0, Clerk). This is just a placeholder for the schema.
