@@ -13,7 +13,7 @@ services:
       - "max_wal_senders=5"
     environment:
       POSTGRES_USER: powersyncuser
-      POSTGRES_PASSWORD: password.123
+      POSTGRES_PASSWORD: password123
       POSTGRES_DB: powertest
     ports:
       - "5432:5432"
