@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_USER: powersyncuser
       POSTGRES_PASSWORD: password.123
-      POSTGRES_DB: powersync
+      POSTGRES_DB: powertest
     ports:
       - "5432:5432"
     volumes:
