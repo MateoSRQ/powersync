@@ -1,0 +1,29 @@
+replication:
+  connections:
+    - type: postgresql
+      # This must match the credentials in your docker-compose.yml
+      uri: postgresql://myuser:mysecretpassword@postgres:5432/mydatabase
+      sslmode: disable # Suitable for local Docker networks
+
+# PowerSync needs a place to store intermediate synced data chunks. 
+# We are using the main Postgres database here for simplicity.
+storage:
+  type: postgresql
+  uri: postgresql://myuser:password123@postgres:5432/powertest
+  sslmode: disable
+
+# Points to where your sync rules are defined
+sync:
+  path: /config/sync-config.yaml
+
+# In production, replace this with your actual auth provider's JWKS URI 
+# (e.g., Supabase, Auth0, Clerk). This is just a placeholder for the schema.
+client_auth:
+  jwks:
+    keys:
+      - kty: "RSA"
+        n: "..." # (Replace with a valid RSA public key for dev/testing)
+        e: "AQAB"
+        kid: "dev-key"
+        alg: "RS256"
+        use: "sig"
